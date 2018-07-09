@@ -1,0 +1,16 @@
+{
+  "env": {"browser": true, "node": true},
+  "extends": ["eslint-config-airbnb", "prettier"],
+  "rules": {
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": [2, {"ignore": ["electron"]}],
+    "linebreak-style": 0,
+    "no-console": "off",
+    "no-use-before-define": 0,
+    "object-curly-spacing": ["error", "never"],
+    "quotes": ["error", "double"],
+    "react/jsx-closing-bracket-location": [1, "after-props"],
+    "react/prefer-stateless-function": 0
+  }
+}

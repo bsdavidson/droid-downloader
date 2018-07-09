@@ -1,0 +1,138 @@
+@import "_reset.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+
+body {
+  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+
+  .app-device-list {
+    border-right: 1px solid #ccc;
+
+    background: #efefef;
+  }
+  .app-directory-list {
+    overflow: scroll;
+    border-radius: 5px;
+    flex-grow: 1;
+  }
+}
+
+.device-list {
+  .device-list-item {
+    padding: 1rem;
+    text-align: center;
+    &-active {
+      background: darken(#efefef, 10%);
+      opacity: 1;
+      .device-list-item-icon {
+        opacity: 1 !important;
+      }
+    }
+    &:hover {
+      .device-list-item-icon {
+        opacity: 1 !important;
+      }
+      opacity: 1;
+    }
+    .device-list-item-serial {
+      display: block;
+    }
+
+    .device-list-item-model {
+      display: block;
+      padding: 0.5rem;
+      font-weight: bold;
+    }
+
+    .device-list-item-link {
+      display: block;
+    }
+    .device-list-item-icon {
+      width: 10rem;
+      font-size: 5rem;
+      opacity: 0.3;
+    }
+  }
+}
+
+.directory-list-toolbar {
+  background: #efefef;
+  border-bottom: 1px solid #777;
+  padding: 0.5rem;
+  display: flex;
+  .directory-list-toolbar-device {
+    flex-grow: 1;
+  }
+  .directory-list-toolbar-device-model {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  .directory-list-toolbar-device-serial {
+    color: #999999;
+    margin-left: 0.5rem;
+  }
+  .directory-list-toolbar-path {
+    margin-top: 0.8rem;
+  }
+  .directory-list-toolbar-download {
+    text-align: right;
+  }
+  .directory-list-toolbar-download-button {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: #fff;
+    background: #3db356;
+    border: 0;
+    margin: 0.2rem;
+  }
+  .directory-list-toolbar-download-icon {
+    margin-right: 0.4rem;
+  }
+  .directory-list-toolbar-path-destination {
+    text-align: right;
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #999999;
+  }
+}
+
+.directory-list {
+  flex-direction: row;
+
+  .directory-list-item {
+    padding: 0.25rem 1rem;
+
+    &:hover {
+      background: #ccc;
+    }
+    .directory-list-item-link {
+      text-decoration: none;
+      display: block;
+    }
+    .directory-list-item-icon {
+      padding-right: 0.5rem;
+      min-width: 1.6rem;
+    }
+  }
+
+  .directory-list-item-directory {
+    font-weight: bold;
+  }
+}
