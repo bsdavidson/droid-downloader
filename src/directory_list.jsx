@@ -1,14 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {traverseDevicePath, downloadFile} from "./actions";
 import DirectoryListItem from "./directory_list_item";
+import DroidPropTypes from "./prop_types";
 
 class DirectoryList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       onDeviceDirectoryClick,
@@ -20,14 +18,13 @@ class DirectoryList extends React.Component {
     if (!device) {
       return null;
     }
-
     return (
       <div className="directory-list">
         <ul className="directory-list-items">
           {device && devicePath.length > 0 ? (
             <DirectoryListItem
               key=".."
-              name=".."
+              item={{name: "..", type: "directory"}}
               type="directory"
               onClick={onDeviceDirectoryClick}
             />
@@ -35,8 +32,7 @@ class DirectoryList extends React.Component {
           {deviceFiles.map(d => (
             <DirectoryListItem
               key={d.name}
-              name={d.name}
-              type={d.type}
+              item={d}
               onClick={
                 d.type === "directory"
                   ? onDeviceDirectoryClick
@@ -50,12 +46,19 @@ class DirectoryList extends React.Component {
   }
 }
 
+DirectoryList.propTypes = {
+  onDeviceDirectoryClick: PropTypes.func.isRequired,
+  onDeviceFileClick: PropTypes.func.isRequired,
+  device: DroidPropTypes.device.isRequired,
+  devicePath: DroidPropTypes.devicePath.isRequired,
+  deviceFiles: DroidPropTypes.deviceFiles.isRequired
+};
+
 function mapStateToProps(state) {
   return {
     device: state.device,
     deviceFiles: state.deviceFiles,
-    devicePath: state.devicePath,
-    localPath: state.localPath
+    devicePath: state.devicePath
   };
 }
 

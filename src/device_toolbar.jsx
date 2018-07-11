@@ -1,7 +1,9 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {downloadFolder} from "./actions";
+import DroidPropTypes from "./prop_types";
 
 const {app} = require("electron").remote;
 
@@ -11,9 +13,9 @@ class DeviceToolbar extends Component {
       return null;
     }
 
-    let device = this.props.devices.filter(d => {
-      return d.serial === this.props.device;
-    })[0];
+    const device = this.props.devices.filter(
+      d => d.serial === this.props.device
+    )[0];
 
     return (
       <div>
@@ -49,6 +51,13 @@ class DeviceToolbar extends Component {
     );
   }
 }
+
+DeviceToolbar.propTypes = {
+  device: DroidPropTypes.device.isRequired,
+  devicePath: DroidPropTypes.devicePath.isRequired,
+  devices: DroidPropTypes.devices.isRequired,
+  onDownloadFolderClick: PropTypes.func.isRequired
+};
 
 function mapStateToProps(state) {
   return {

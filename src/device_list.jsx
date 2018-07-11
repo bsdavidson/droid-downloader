@@ -1,7 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {setDevice} from "./actions";
+import DroidPropTypes from "./prop_types";
 
 class DeviceList extends React.Component {
   constructor(props) {
@@ -38,6 +40,12 @@ class DeviceList extends React.Component {
     );
   }
 }
+
+DeviceList.propTypes = {
+  device: DroidPropTypes.device.isRequired,
+  devices: DroidPropTypes.devices.isRequired,
+  onDeviceChange: PropTypes.func.isRequired
+};
 
 function mapStateToProps(state) {
   return {

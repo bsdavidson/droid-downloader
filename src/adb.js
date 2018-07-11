@@ -1,8 +1,9 @@
 import {spawn} from "child_process";
+
 import fs from "fs-extra";
 import path from "path";
 
-class ADBExitError extends Error {
+export class ADBExitError extends Error {
   constructor(code, signal, stderr) {
     super(`ADB exited with code ${code} (signal: ${signal}) - ${stderr}`);
     this.code = code;
@@ -11,7 +12,7 @@ class ADBExitError extends Error {
   }
 }
 
-class Device {
+export class Device {
   constructor(serial, state, properties) {
     this.serial = serial;
     this.state = state;
@@ -32,10 +33,12 @@ class Device {
   }
 }
 
-class DirLine {
-  constructor(line, type, timestamp, name) {
+export class DirLine {
+  constructor(line, type, timestamp, name, permission, size) {
     this.type = type;
     this.timestamp = timestamp;
+    this.permission = permission;
+    this.size = size;
     this.name = name;
     this.line = line;
   }
@@ -43,9 +46,7 @@ class DirLine {
   static parseLine(line) {
     const parts = line
       .trim()
-      .match(
-        /^([^ ]+) +(?:[^ ]+ +){2,4}(\d{4}-\d{2}-\d{2} +\d{2}:\d{2}) +(.+)$/
-      );
+      .match(/^([^ ]+) +([^ ]+ +){2,4}(\d{4}-\d{2}-\d{2} +\d{2}:\d{2}) +(.+)$/);
     if (!parts) {
       return null;
     }
@@ -55,13 +56,15 @@ class DirLine {
       parts[1].charAt(0) === "d" || parts[1].charAt(0) === "l"
         ? "directory"
         : "file",
-      parts[2],
-      parts[3].trim()
+      parts[3],
+      parts[4].trim(),
+      parts[1].trim(),
+      parts[2]
     );
   }
 }
 
-function shellQuote(value) {
+export function shellQuote(value) {
   // (╯°□°）╯︵ ┻━┻
   return "'" + value.replace("'", `'"'"'`) + "'"; // eslint-disable-line prefer-template, quotes
 }
@@ -174,7 +177,6 @@ export function getFileList(rootPath) {
 }
 
 export function pull(deviceSerial, source, destination) {
-  console.log(deviceSerial, source, destination);
   return new Promise((resolve, reject) => {
     const process = spawn("/usr/local/bin/adb", [
       "-s",
