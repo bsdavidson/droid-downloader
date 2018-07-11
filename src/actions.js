@@ -1,7 +1,7 @@
-import {getDirectoryList, getDevices, getFileList, pull} from "./adb";
-import path from "path";
-
-const {app} = require("electron").remote;
+export const DOWNLOAD_FILE = "DOWNLOAD_FILE";
+export const DOWNLOAD_FOLDER = "DOWNLOAD_FOLDER";
+export const REFRESH_DEVICES = "REFRESH_DEVICES";
+export const REFRESH_DEVICE_FILES = "REFRESH_DEVICE_FILES";
 export const SET_DEVICE = "SET_DEVICE";
 export const SET_DEVICES = "SET_DEVICES";
 export const SET_DEVICE_FILES = "SET_DEVICE_FILES";
@@ -9,80 +9,36 @@ export const SET_DEVICE_PATH = "SET_DEVICE_PATH";
 export const SET_LOCAL_PATH = "SET_LOCAL_PATH";
 export const TRAVERSE_DEVICE_PATH = "TRAVERSE_DEVICE_PATH";
 
-export function refreshDeviceFiles() {
-  return (dispatch, getState) => {
-    const {device, devicePath} = getState();
-    return getDirectoryList(device, `/${devicePath.join("/")}`)
-      .then(deviceFiles => {
-        dispatch({type: SET_DEVICE_FILES, deviceFiles});
-      })
-      .catch(err => {
-        console.error("getDirectoryList error:", err);
-      });
-  };
-}
-
 export function downloadFile(name) {
-  return (dispatch, getState) => {
-    const {device, devicePath} = getState();
-    const file = `/${devicePath.join("/")}/${name}`;
-
-    pull(device, file, app.getPath("downloads")).then(msg => {
-      new Notification("Download complete.", {
-        silent: true,
-        body: `Downloaded ${name} to ${app.getPath("downloads")}`
-      });
-    });
-  };
+  return {type: DOWNLOAD_FILE, name};
 }
 
 export function downloadFolder() {
-  return (dispatch, getState) => {
-    const {device, devicePath} = getState();
-    const source = `/${devicePath.join("/")}`;
+  return {type: DOWNLOAD_FOLDER};
+}
 
-    return pull(device, source, app.getPath("downloads"))
-      .then(message => {
-        new Notification("Folder Download complete.", {
-          silent: true,
-          body: `Downloaded ${path.basename(source)} to ${app.getPath(
-            "downloads"
-          )}`
-        });
-        return message;
-      })
-      .catch(err => {
-        console.error("pull error:", err);
-      });
-  };
+export function refreshDeviceFiles() {
+  return {type: REFRESH_DEVICE_FILES};
 }
 
 export function refreshDevices() {
-  return dispatch => {
-    return getDevices()
-      .then(devices => {
-        console.log("devices", devices);
-        dispatch({type: SET_DEVICES, devices});
-        return devices;
-      })
-      .catch(err => {
-        console.error("getDevices error:", err);
-      });
-  };
+  return {type: REFRESH_DEVICES};
 }
 
 export function setDevice(device) {
-  return dispatch => {
-    dispatch({type: SET_DEVICE, device});
-    return dispatch(setDevicePath(["storage"]));
-  };
+  return {type: SET_DEVICE, device};
+}
+
+export function setDeviceFiles(deviceFiles) {
+  return {type: SET_DEVICE_FILES, deviceFiles};
 }
 
 export function setDevicePath(devicePath) {
-  return dispatch => {
-    dispatch({type: SET_DEVICE_PATH, devicePath});
-    return dispatch(refreshDeviceFiles());
-  };
+  return {type: SET_DEVICE_PATH, devicePath};
+}
+
+export function setDevices(devices) {
+  return {type: SET_DEVICES, devices};
 }
 
 export function setLocalPath(localPath) {
@@ -90,8 +46,5 @@ export function setLocalPath(localPath) {
 }
 
 export function traverseDevicePath(dirName) {
-  return dispatch => {
-    dispatch({type: TRAVERSE_DEVICE_PATH, dirName});
-    return dispatch(refreshDeviceFiles());
-  };
+  return {type: TRAVERSE_DEVICE_PATH, dirName};
 }

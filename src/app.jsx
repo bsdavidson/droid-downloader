@@ -29,8 +29,6 @@ class App extends React.Component {
     return (
       <div className="app">
         <div className="app-device-list">
-          <button onClick={this.props.refreshDevices}>Refresh</button>
-          <button onClick={App.handleLocalPathSetClick}>SetPath</button>
           <DeviceList />
         </div>
         <div className="app-directory-list">
@@ -49,7 +47,6 @@ App.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // sagaDevice: () => dispatch({type: "FETCH_REQUESTED"}),
     refreshDevices: () => dispatch(refreshDevices()),
     onLocalPathChange: localPath => dispatch(setLocalPath(localPath))
   };
