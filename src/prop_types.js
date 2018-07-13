@@ -8,16 +8,14 @@ const devices = PropTypes.arrayOf(
     properties: PropTypes.objectOf(PropTypes.string).isRequired
   })
 );
+const deviceFile = PropTypes.shape({
+  type: PropTypes.string.isRequired,
+  timestamp: PropTypes.string.isRequired,
+  permission: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+});
+const deviceFiles = PropTypes.arrayOf(deviceFile);
 const devicePath = PropTypes.arrayOf(PropTypes.string);
-const deviceFiles = PropTypes.arrayOf(
-  PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    timestamp: PropTypes.string.isRequired,
-    permission: PropTypes.string.isRequired,
-    size: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    line: PropTypes.string.isRequired
-  })
-);
 
-export default {device, devices, devicePath, deviceFiles};
+export default {device, devices, devicePath, deviceFile, deviceFiles};

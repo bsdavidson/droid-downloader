@@ -2,19 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {setDevice} from "./actions";
+import {setDevice, refreshDevices} from "./actions";
 import DroidPropTypes from "./prop_types";
 
-class DeviceList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleDeviceChange = this.handleDeviceChange.bind(this);
-  }
-  handleDeviceChange(event) {
-    this.props.onDeviceChange(event.target.value);
-  }
-
+export class DeviceList extends React.Component {
   render() {
     const {devices, device} = this.props;
     return (
@@ -36,6 +27,15 @@ class DeviceList extends React.Component {
             </a>
           </div>
         ))}
+        <div className="device-list-refresh">
+          <a
+            className="device-list-refresh-link"
+            href="#refresh"
+            onClick={this.props.onRefreshDevices}>
+            <i className="device-list-refresh-icon fas fa-sync-alt" />
+            Refresh
+          </a>
+        </div>
       </div>
     );
   }
@@ -44,7 +44,8 @@ class DeviceList extends React.Component {
 DeviceList.propTypes = {
   device: DroidPropTypes.device.isRequired,
   devices: DroidPropTypes.devices.isRequired,
-  onDeviceChange: PropTypes.func.isRequired
+  onDeviceChange: PropTypes.func.isRequired,
+  onRefreshDevices: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -56,7 +57,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onDeviceChange: device => dispatch(setDevice(device))
+    onDeviceChange: device => dispatch(setDevice(device)),
+    onRefreshDevices: () => dispatch(refreshDevices())
   };
 }
 

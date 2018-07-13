@@ -1,8 +1,5 @@
 import {spawn} from "child_process";
 
-import fs from "fs-extra";
-import path from "path";
-
 export class ADBExitError extends Error {
   constructor(code, signal, stderr) {
     super(`ADB exited with code ${code} (signal: ${signal}) - ${stderr}`);
@@ -34,32 +31,47 @@ export class Device {
 }
 
 export class DirLine {
-  constructor(line, type, timestamp, name, permission, size) {
+  constructor(type, timestamp, name, permission, size) {
     this.type = type;
     this.timestamp = timestamp;
     this.permission = permission;
     this.size = size;
     this.name = name;
-    this.line = line;
   }
 
   static parseLine(line) {
     const parts = line
       .trim()
-      .match(/^([^ ]+) +([^ ]+ +){2,4}(\d{4}-\d{2}-\d{2} +\d{2}:\d{2}) +(.+)$/);
+      .match(
+        /^([^ ]+) +(\d+ +)?([^ ]+ +)([^ ]+ +)(\d+ +)?(\d{4}-\d{2}-\d{2} +\d{2}:\d{2}) +(.+)$/
+      );
     if (!parts) {
       return null;
     }
+    const [
+      matched,
+      permission,
+      links,
+      user,
+      group,
+      size,
+      timestamp,
+      name
+    ] = parts.map(p => {
+      if (!p) {
+        return "";
+      }
+      return p.trim();
+    });
 
     return new DirLine(
-      line,
-      parts[1].charAt(0) === "d" || parts[1].charAt(0) === "l"
+      permission.charAt(0) === "d" || permission[1].charAt(0) === "l"
         ? "directory"
         : "file",
-      parts[3],
-      parts[4].trim(),
-      parts[1].trim(),
-      parts[2]
+      timestamp,
+      name,
+      permission,
+      size
     );
   }
 }
@@ -134,44 +146,6 @@ export function getDirectoryList(deviceSerial, dirPath) {
           .map(DirLine.parseLine)
           .filter(d => d)
       );
-    });
-  });
-}
-
-export function getFileList(rootPath) {
-  return new Promise((resolve, reject) => {
-    let fileList = [];
-    fs.readdir(rootPath, (err, names) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      let remaining = names.length;
-      function done(delta) {
-        remaining -= delta;
-        if (remaining === 0) {
-          fileList.sort();
-          resolve(fileList);
-        }
-      }
-      names.forEach(name => {
-        const filePath = path.join(rootPath, name);
-        fs.lstat(filePath, (statErr, stats) => {
-          if (statErr) {
-            console.log(`error in lstat for ${filePath}: ${statErr}`);
-          } else if (stats.isDirectory()) {
-            getFileList(filePath).then(items => {
-              fileList = fileList.concat(items);
-              done(1);
-            });
-            return; // prevent done() from being called too soon
-          } else if (stats.isFile()) {
-            fileList.push(filePath);
-          }
-          done(1);
-        });
-      });
-      done(0);
     });
   });
 }

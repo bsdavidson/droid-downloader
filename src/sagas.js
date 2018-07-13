@@ -8,6 +8,7 @@ import {
 } from "redux-saga/effects";
 import path from "path";
 
+import notify from "./notification";
 import {getDevices, getDirectoryList, pull} from "./adb";
 import {
   DOWNLOAD_FILE,
@@ -15,11 +16,13 @@ import {
   REFRESH_DEVICES,
   REFRESH_DEVICE_FILES,
   SET_DEVICE,
+  SET_DEVICE_FILE,
   SET_DEVICE_PATH,
   TRAVERSE_DEVICE_PATH,
   setDeviceFiles,
   setDevicePath,
-  setDevices
+  setDevices,
+  setFilePreviewPath
 } from "./actions";
 
 const {app} = require("electron").remote;
@@ -30,11 +33,11 @@ export function* downloadFile(action) {
 
   try {
     yield call(pull, device, file, app.getPath("downloads"));
-    // eslint-disable-next-line no-new
-    new Notification("Download complete.", {
-      silent: true,
-      body: `Downloaded ${action.name} to ${app.getPath("downloads")}`
-    });
+    yield call(
+      notify,
+      "Download complete.",
+      `Downloaded ${action.name} to ${app.getPath("downloads")}`
+    );
   } catch (err) {
     console.error("pull error:", err);
   }
@@ -46,13 +49,42 @@ export function* downloadFolder() {
 
   try {
     yield call(pull, device, source, app.getPath("downloads"));
-    // eslint-disable-next-line no-new
-    new Notification("Folder Download complete.", {
-      silent: true,
-      body: `Downloaded ${path.basename(source)} to ${app.getPath("downloads")}`
-    });
+    yield call(
+      notify,
+      "Folder Download complete.",
+      `Downloaded ${path.basename(source)} to ${app.getPath("downloads")}`
+    );
   } catch (err) {
     console.error("pull error:", err);
+  }
+}
+
+export function* previewFile() {
+  const {device, deviceFile, devicePath} = yield select();
+  if (!deviceFile) {
+    return;
+  }
+  const fileExt = deviceFile.name
+    .split(".")
+    .pop()
+    .toLowerCase();
+  if (
+    fileExt !== "jpg" &&
+    fileExt !== "jpeg" &&
+    fileExt !== "png" &&
+    fileExt !== "gif"
+  ) {
+    yield put(setFilePreviewPath(null));
+    return;
+  }
+  const file = `/${devicePath.join("/")}/${deviceFile.name}`;
+  const tempPath = app.getPath("temp");
+
+  try {
+    yield call(pull, device, file, tempPath);
+    yield put(setFilePreviewPath(`${tempPath}/${deviceFile.name}`));
+  } catch (err) {
+    console.error("preview error:", err);
   }
 }
 
@@ -89,6 +121,7 @@ export function* rootSaga() {
     takeEvery(DOWNLOAD_FILE, downloadFile),
     takeEvery(DOWNLOAD_FOLDER, downloadFolder),
     takeLatest([REFRESH_DEVICES], refreshDevices),
+    takeLatest(SET_DEVICE_FILE, previewFile),
     takeLatest(
       [REFRESH_DEVICE_FILES, SET_DEVICE_PATH, TRAVERSE_DEVICE_PATH],
       refreshDeviceFiles

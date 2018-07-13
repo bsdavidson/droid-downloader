@@ -1,0 +1,6 @@
+{
+  "env": {"browser": true, "node": true, "jest": true},
+  "rules": {
+    "import/first": 0
+  }
+}

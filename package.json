@@ -1,5 +1,9 @@
 {
   "name": "droid-downloader",
+  "jest": {
+    "verbose": true,
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
+  },
   "productName": "Droid Downloader",
   "version": "0.1.0",
   "description": "Browse and download files from attached Android devices",
@@ -9,7 +13,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --cache --color --ext .jsx,.js src"
+    "lint": "eslint --cache --color --ext .jsx,.js src",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Brian Davidson",
@@ -51,17 +56,16 @@
     "electron-devtools-installer": "^2.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "fs-extra": "^6.0.1",
-    "react": "^15.4.1",
-    "react-desktop": "^0.3.5",
-    "react-dom": "^15.4.1",
-    "react-hot-loader": "^3.0.0-beta.6",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-hot-loader": "^4.3.3",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-saga": "^0.16.0",
-    "redux-thunk": "^2.3.0"
+    "redux-saga": "^0.16.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.5",
+    "babel-jest": "^23.4.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -69,13 +73,17 @@
     "babel-preset-react": "^6.24.1",
     "electron-forge": "^5.2.2",
     "electron-prebuilt-compile": "2.0.4",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^3",
     "eslint-config-airbnb": "^15",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2",
     "eslint-plugin-jsx-a11y": "^5",
     "eslint-plugin-react": "^7",
+    "jest": "^23.4.0",
     "node-sass": "^4.9.2",
+    "react-test-renderer": "^16.4.1",
     "sass-loader": "^7.0.3"
   }
 }

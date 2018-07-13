@@ -4,8 +4,10 @@ export const REFRESH_DEVICES = "REFRESH_DEVICES";
 export const REFRESH_DEVICE_FILES = "REFRESH_DEVICE_FILES";
 export const SET_DEVICE = "SET_DEVICE";
 export const SET_DEVICES = "SET_DEVICES";
+export const SET_DEVICE_FILE = "SET_DEVICE_FILE";
 export const SET_DEVICE_FILES = "SET_DEVICE_FILES";
 export const SET_DEVICE_PATH = "SET_DEVICE_PATH";
+export const SET_FILE_PREVIEW_PATH = "SET_FILE_PREVIEW_PATH";
 export const SET_LOCAL_PATH = "SET_LOCAL_PATH";
 export const TRAVERSE_DEVICE_PATH = "TRAVERSE_DEVICE_PATH";
 
@@ -29,6 +31,10 @@ export function setDevice(device) {
   return {type: SET_DEVICE, device};
 }
 
+export function setDeviceFile(deviceFile) {
+  return {type: SET_DEVICE_FILE, deviceFile};
+}
+
 export function setDeviceFiles(deviceFiles) {
   return {type: SET_DEVICE_FILES, deviceFiles};
 }
@@ -39,6 +45,10 @@ export function setDevicePath(devicePath) {
 
 export function setDevices(devices) {
   return {type: SET_DEVICES, devices};
+}
+
+export function setFilePreviewPath(filePreviewPath) {
+  return {type: SET_FILE_PREVIEW_PATH, filePreviewPath};
 }
 
 export function setLocalPath(localPath) {

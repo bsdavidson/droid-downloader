@@ -7,7 +7,7 @@ import DroidPropTypes from "./prop_types";
 
 const {app} = require("electron").remote;
 
-class DeviceToolbar extends Component {
+export class DeviceToolbar extends Component {
   render() {
     if (!this.props.device) {
       return null;

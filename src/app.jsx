@@ -8,8 +8,9 @@ import {refreshDevices, setLocalPath} from "./actions";
 import DeviceToolbar from "./device_toolbar";
 import DeviceList from "./device_list";
 import DirectoryList from "./directory_list";
+import FileInfo from "./file_info";
 
-class App extends React.Component {
+export class App extends React.Component {
   static handleLocalPathSetClick() {
     ipcRenderer.send("open-file-dialog");
   }
@@ -34,6 +35,7 @@ class App extends React.Component {
         <div className="app-directory-list">
           <DeviceToolbar />
           <DirectoryList />
+          <FileInfo />
         </div>
       </div>
     );

@@ -68,10 +68,27 @@ body {
       opacity: 0.3;
     }
   }
+  .device-list-refresh {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 12rem;
+    &-link {
+      padding: 1rem;
+      text-align: center;
+      display: block;
+    }
+    &-link:hover {
+      background: #cdcdcd;
+    }
+    &-icon {
+      margin-right: 0.4rem;
+    }
+  }
 }
 
 .directory-list-toolbar {
-  background: #efefef;
+  background: hsl(0, 0%, 94%);
   border-bottom: 1px solid #777;
   padding: 0.5rem;
   display: flex;
@@ -115,6 +132,9 @@ body {
 
 .directory-list {
   flex-direction: row;
+  &.file-info-present {
+    padding-bottom: 10rem;
+  }
 
   .directory-list-item {
     padding: 0.25rem 1rem;
@@ -134,5 +154,75 @@ body {
 
   .directory-list-item-directory {
     font-weight: bold;
+  }
+}
+
+.file-info {
+  position: fixed;
+  bottom: 0;
+  left: 12rem;
+  right: 0;
+  height: 10rem;
+  background: #fafafa;
+  border-top: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+
+  .file-info-left {
+    flex-grow: 1;
+    border-right: 1px solid #999;
+    padding: 0.4rem;
+    position: relative;
+  }
+  .file-info-right {
+    background: #efefef;
+    min-width: 11rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .file-info-group {
+    padding: 0.3rem;
+  }
+  .file-info-label {
+    font-weight: bold;
+    margin-right: 1rem;
+    min-width: 5rem;
+    display: inline-block;
+  }
+  .file-info-value {
+    padding: 0;
+    display: inline-block;
+  }
+
+  .file-info-download {
+    position: absolute;
+    bottom: 0.4rem;
+    left: 0.4rem;
+    .file-info-download-icon {
+      margin-right: 0.4rem;
+    }
+    &-link {
+      font-size: 1rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 0.5rem;
+      color: #fff;
+      background: #444444;
+      border: 0;
+      margin: 0.2rem;
+    }
+    &-link:hover {
+      background: #000000;
+      cursor: pointer;
+    }
+  }
+  .file-info-preview {
+    text-align: center;
+    flex-grow: 1;
+    &-image {
+      max-width: 11rem;
+      max-height: 10rem;
+      height: auto;
+    }
   }
 }
