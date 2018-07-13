@@ -1,4 +1,5 @@
-# Droid Downloader
+# Droid Downloader 
+[![Build Status](https://travis-ci.org/bsdavidson/droid-downloader.svg?branch=master)](https://travis-ci.org/bsdavidson/droid-downloader)
 
 This is a (very) work-in-progress Electron app which provides an easier user
 interface to download files and folders from an Android device. It uses the
