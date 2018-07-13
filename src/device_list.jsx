@@ -19,7 +19,7 @@ export class DeviceList extends React.Component {
             <a
               href="#device"
               className="device-list-item-link"
-              onClick={() => this.props.onDeviceChange(d.serial)}>
+              onClick={() => this.props.onDeviceClick(d.serial)}>
               <i className="device-list-item-icon fas fa-mobile-alt" />
               <span className="device-list-item-model">
                 {d.properties.model.replace(/_/g, " ")}
@@ -31,7 +31,7 @@ export class DeviceList extends React.Component {
           <a
             className="device-list-refresh-link"
             href="#refresh"
-            onClick={this.props.onRefreshDevices}>
+            onClick={this.props.onRefreshDevicesClick}>
             <i className="device-list-refresh-icon fas fa-sync-alt" />
             Refresh
           </a>
@@ -44,8 +44,8 @@ export class DeviceList extends React.Component {
 DeviceList.propTypes = {
   device: DroidPropTypes.device.isRequired,
   devices: DroidPropTypes.devices.isRequired,
-  onDeviceChange: PropTypes.func.isRequired,
-  onRefreshDevices: PropTypes.func.isRequired
+  onDeviceClick: PropTypes.func.isRequired,
+  onRefreshDevicesClick: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -57,8 +57,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onDeviceChange: device => dispatch(setDevice(device)),
-    onRefreshDevices: () => dispatch(refreshDevices())
+    onDeviceClick: device => dispatch(setDevice(device)),
+    onRefreshDevicesClick: () => dispatch(refreshDevices())
   };
 }
 
