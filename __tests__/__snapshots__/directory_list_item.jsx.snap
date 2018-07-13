@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DirectoryListItem /> should render a directory 1`] = `
+<li
+  className="directory-list-item directory-list-item-directory"
+>
+  <a
+    className="directory-list-item-link"
+    href="#directory"
+    onClick={[Function]}
+  >
+    <i
+      className="directory-list-item-icon far fa-folder"
+    />
+    <span
+      className="directory-list-item-elem directory-list-item-name"
+    >
+      folder_1
+    </span>
+  </a>
+</li>
+`;
+
+exports[`<DirectoryListItem /> should render a file 1`] = `
+<li
+  className="directory-list-item directory-list-item-file"
+>
+  <a
+    className="directory-list-item-link"
+    href="#directory"
+    onClick={[Function]}
+  >
+    <i
+      className="directory-list-item-icon far fa-file"
+    />
+    <span
+      className="directory-list-item-elem directory-list-item-name"
+    >
+      file_1
+    </span>
+  </a>
+</li>
+`;

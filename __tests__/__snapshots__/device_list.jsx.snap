@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DeviceList /> 1`] = `
+<div
+  className="device-list"
+>
+  <div
+    className="device-list-item device-list-item-inactive"
+  >
+    <a
+      className="device-list-item-link"
+      href="#device"
+      onClick={[Function]}
+    >
+      <i
+        className="device-list-item-icon fas fa-mobile-alt"
+      />
+      <span
+        className="device-list-item-model"
+      >
+        SM G955U
+      </span>
+    </a>
+  </div>
+  <div
+    className="device-list-item device-list-item-active"
+  >
+    <a
+      className="device-list-item-link"
+      href="#device"
+      onClick={[Function]}
+    >
+      <i
+        className="device-list-item-icon fas fa-mobile-alt"
+      />
+      <span
+        className="device-list-item-model"
+      >
+        SM G999V
+      </span>
+    </a>
+  </div>
+  <div
+    className="device-list-item device-list-item-inactive"
+  >
+    <a
+      className="device-list-item-link"
+      href="#device"
+      onClick={[Function]}
+    >
+      <i
+        className="device-list-item-icon fas fa-mobile-alt"
+      />
+      <span
+        className="device-list-item-model"
+      >
+        SM G910V
+      </span>
+    </a>
+  </div>
+  <div
+    className="device-list-refresh"
+  >
+    <a
+      className="device-list-refresh-link"
+      href="#refresh"
+    >
+      <i
+        className="device-list-refresh-icon fas fa-sync-alt"
+      />
+      Refresh
+    </a>
+  </div>
+</div>
+`;
+
+exports[`<DeviceList /> renders an empty element without any devices 1`] = `
+<div
+  className="device-list"
+>
+  <div
+    className="device-list-refresh"
+  >
+    <a
+      className="device-list-refresh-link"
+      href="#refresh"
+    >
+      <i
+        className="device-list-refresh-icon fas fa-sync-alt"
+      />
+      Refresh
+    </a>
+  </div>
+</div>
+`;
