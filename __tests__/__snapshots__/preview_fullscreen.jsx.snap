@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PreviewFullscreen /> should not render 1`] = `null`;
+
+exports[`<PreviewFullscreen /> should render 1`] = `
+<div
+  className="preview-fullscreen"
+>
+  <a
+    className="preview-fullscreen-link"
+    href="#openfullscreen"
+    onClick={[Function]}
+  >
+    <img
+      alt="Fullscreen"
+      className="preview-fullscreen-image"
+      src="file:///tmp/image.jpg"
+    />
+  </a>
+</div>
+`;

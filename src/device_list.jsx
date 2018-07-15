@@ -8,25 +8,30 @@ import DroidPropTypes from "./prop_types";
 export class DeviceList extends React.Component {
   render() {
     const {devices, device} = this.props;
+
     return (
       <div className="device-list">
-        {devices.map(d => (
-          <div
-            className={`device-list-item device-list-item-${
-              d.serial === device ? "active" : "inactive"
-            }`}
-            key={d.serial}>
-            <a
-              href="#device"
-              className="device-list-item-link"
-              onClick={() => this.props.onDeviceClick(d.serial)}>
-              <i className="device-list-item-icon fas fa-mobile-alt" />
-              <span className="device-list-item-model">
-                {d.properties.model.replace(/_/g, " ")}
-              </span>
-            </a>
-          </div>
-        ))}
+        {devices.length > 0 ? (
+          devices.map(d => (
+            <div
+              className={`device-list-item device-list-item-${
+                d.serial === device ? "active" : "inactive"
+              }`}
+              key={d.serial}>
+              <a
+                href="#device"
+                className="device-list-item-link"
+                onClick={() => this.props.onDeviceClick(d.serial)}>
+                <i className="device-list-item-icon fas fa-mobile-alt" />
+                <span className="device-list-item-model">
+                  {d.properties.model.replace(/_/g, " ")}
+                </span>
+              </a>
+            </div>
+          ))
+        ) : (
+          <span className="device-list-nodevices">No Devices Found</span>
+        )}
         <div className="device-list-refresh">
           <a
             className="device-list-refresh-link"

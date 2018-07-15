@@ -1,50 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<DeviceToolbar /> 1`] = `
-<div>
+<div
+  className="directory-list-toolbar"
+>
   <div
-    className="directory-list-toolbar"
+    className="directory-list-toolbar-device"
   >
-    <div
-      className="directory-list-toolbar-device"
-    >
-      <div>
-        <span
-          className="directory-list-toolbar-device-model"
-        >
-          SM G999V
-        </span>
-        <span
-          className="directory-list-toolbar-device-serial"
-        >
-          ffffbeefface
-        </span>
-      </div>
-      <div
-        className="directory-list-toolbar-path"
+    <div>
+      <span
+        className="directory-list-toolbar-device-model"
       >
-        Folder listing for /
-        storage/emulated/0/DCIM
-      </div>
+        SM G999V
+      </span>
+      <span
+        className="directory-list-toolbar-device-serial"
+      >
+        ffffbeefface
+      </span>
     </div>
     <div
-      className="directory-list-toolbar-download"
+      className="directory-list-toolbar-path"
     >
-      <button
-        className="directory-list-toolbar-download-button"
-        onClick={[Function]}
-      >
-        <i
-          className="fas fa-download directory-list-toolbar-download-icon"
-        />
-        Download this folder
-      </button>
-      <div
-        className="directory-list-toolbar-path-destination"
-      >
-        Files will be downloaded to 
-        /tmp/downloads
-      </div>
+      Folder listing for /
+      storage/emulated/0/DCIM
+    </div>
+  </div>
+  <div
+    className="directory-list-toolbar-download"
+  >
+    <button
+      className="directory-list-toolbar-download-button"
+      onClick={[Function]}
+    >
+      <i
+        className="fas fa-download directory-list-toolbar-download-icon"
+      />
+      Download this folder
+    </button>
+    <div
+      className="directory-list-toolbar-path-destination"
+    >
+      Files will be downloaded to 
+      /tmp/downloads
     </div>
   </div>
 </div>

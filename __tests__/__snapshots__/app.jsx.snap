@@ -12,6 +12,7 @@ exports[`<App /> renders app 1`] = `
   <div
     className="app-directory-list"
   >
+    <preview-fullscreen />
     <device-toolbar />
     <directory-list />
     <file-info />

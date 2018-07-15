@@ -86,11 +86,15 @@ exports[`<FileInfo /> should render an infoBox 1`] = `
     <div
       className="file-info-preview"
     >
-      <p
-        className="file-info-preview-none"
+      <a
+        href="#previewFull"
       >
-        No Preview Available
-      </p>
+        <p
+          className="file-info-preview-none"
+        >
+          No Preview Available
+        </p>
+      </a>
     </div>
   </div>
 </div>

@@ -5,7 +5,7 @@
     "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
   },
   "productName": "Droid Downloader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Browse and download files from attached Android devices",
   "main": "src/main.js",
   "scripts": {

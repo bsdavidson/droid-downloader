@@ -79,6 +79,11 @@ exports[`<DeviceList /> renders an empty element without any devices 1`] = `
 <div
   className="device-list"
 >
+  <span
+    className="device-list-nodevices"
+  >
+    No Devices Found
+  </span>
   <div
     className="device-list-refresh"
   >
