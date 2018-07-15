@@ -1,6 +1,7 @@
 import {combineReducers} from "redux";
 
 import {
+  REFRESH_DEVICES,
   SET_DEVICE,
   SET_DEVICES,
   SET_DEVICE_FILE,
@@ -8,6 +9,7 @@ import {
   SET_DEVICE_PATH,
   SET_FILE_PREVIEW_PATH,
   SET_LOCAL_PATH,
+  TOGGLE_FILE_PREVIEW,
   TRAVERSE_DEVICE_PATH
 } from "./actions";
 
@@ -26,6 +28,8 @@ export function deviceFile(state = null, action) {
       return action.deviceFile;
     case SET_DEVICE_PATH:
       return null;
+    case SET_DEVICES:
+      return null;
     case TRAVERSE_DEVICE_PATH:
       return null;
     default:
@@ -37,6 +41,8 @@ export function deviceFiles(state = [], action) {
   switch (action.type) {
     case SET_DEVICE_FILES:
       return action.deviceFiles;
+    case SET_DEVICE:
+      return [];
     default:
       return state;
   }
@@ -78,6 +84,23 @@ export function filePreviewPath(state = null, action) {
   }
 }
 
+export function filePreviewFullScreen(state = false, action) {
+  switch (action.type) {
+    case TOGGLE_FILE_PREVIEW:
+      return state === false;
+    case SET_DEVICE_PATH:
+      return false;
+    case SET_DEVICE_FILES:
+      return false;
+    case SET_DEVICE_FILE:
+      return false;
+    case REFRESH_DEVICES:
+      return false;
+    default:
+      return state;
+  }
+}
+
 export function localPath(state = "", action) {
   switch (action.type) {
     case SET_LOCAL_PATH:
@@ -93,6 +116,7 @@ export const reducer = combineReducers({
   deviceFiles,
   devicePath,
   devices,
+  filePreviewFullScreen,
   filePreviewPath,
   localPath
 });

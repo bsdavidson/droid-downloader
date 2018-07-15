@@ -85,13 +85,22 @@ body {
       margin-right: 0.4rem;
     }
   }
+  &-nodevices {
+    width: 12rem;
+    text-align: center;
+    padding: 0.5rem;
+    display: block;
+  }
 }
 
 .directory-list-toolbar {
   background: hsl(0, 0%, 94%);
   border-bottom: 1px solid #777;
-  padding: 0.5rem;
   display: flex;
+  left: 12rem;
+  padding: 0.5rem;
+  position: fixed;
+  right: 0;
   .directory-list-toolbar-device {
     flex-grow: 1;
   }
@@ -131,9 +140,17 @@ body {
 }
 
 .directory-list {
+  bottom: 0;
   flex-direction: row;
+  left: 12rem;
+  overflow: scroll;
+  position: fixed;
+  position: fixed;
+  right: 0;
+  top: 5rem;
+
   &.file-info-present {
-    padding-bottom: 10rem;
+    padding-bottom: 10.2rem;
   }
 
   .directory-list-item {
@@ -224,5 +241,22 @@ body {
       max-height: 10rem;
       height: auto;
     }
+  }
+}
+
+.preview-fullscreen {
+  background: #ffffff;
+  border-bottom: 1px solid #cdcdcd;
+  left: 12rem;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 100;
+  &-image {
+    border-radius: 1.4rem;
+    height: auto;
+    max-width: 100%;
+    padding: 1rem;
   }
 }

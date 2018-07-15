@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {downloadFile} from "./actions";
+import {downloadFile, toggleFilePreviewFullscreen} from "./actions";
 
 export class FileInfo extends React.Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export class FileInfo extends React.Component {
           <div className="file-info-group file-info-path">
             <span className="file-info-label">Path:</span>
             <span className="file-info-value">
-              {"/" + devicePath.join("/")}
+              {`/${devicePath.join("/")}`}
             </span>
           </div>
           <div className="file-info-group file-info-name">
@@ -64,7 +64,13 @@ export class FileInfo extends React.Component {
           </div>
         </div>
         <div className="file-info-right">
-          <div className="file-info-preview">{previewImage}</div>
+          <div className="file-info-preview">
+            <a
+              href="#previewFull"
+              onClick={this.props.onPreviewFullScreenClick}>
+              {previewImage}
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -72,13 +78,16 @@ export class FileInfo extends React.Component {
 }
 
 FileInfo.defaultProps = {
-  deviceFile: null
+  deviceFile: null,
+  filePreviewPath: null
 };
 
 FileInfo.propTypes = {
   deviceFile: PropTypes.objectOf(PropTypes.string),
   devicePath: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onDownloadClick: PropTypes.func.isRequired
+  filePreviewPath: PropTypes.string,
+  onDownloadClick: PropTypes.func.isRequired,
+  onPreviewFullScreenClick: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -91,7 +100,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onDownloadClick: fileName => dispatch(downloadFile(fileName))
+    onDownloadClick: fileName => dispatch(downloadFile(fileName)),
+    onPreviewFullScreenClick: () => {
+      dispatch(toggleFilePreviewFullscreen());
+    }
   };
 }
 

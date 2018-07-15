@@ -18,33 +18,31 @@ export class DeviceToolbar extends Component {
     )[0];
 
     return (
-      <div>
-        <div className="directory-list-toolbar">
-          <div className="directory-list-toolbar-device">
-            <div>
-              <span className="directory-list-toolbar-device-model">
-                {device ? device.properties.model.replace(/_/g, " ") : null}
-              </span>
-              <span className="directory-list-toolbar-device-serial">
-                {this.props.device}
-              </span>
-            </div>
-
-            <div className="directory-list-toolbar-path">
-              Folder listing for /{this.props.devicePath.join("/")}
-            </div>
+      <div className="directory-list-toolbar">
+        <div className="directory-list-toolbar-device">
+          <div>
+            <span className="directory-list-toolbar-device-model">
+              {device ? device.properties.model.replace(/_/g, " ") : null}
+            </span>
+            <span className="directory-list-toolbar-device-serial">
+              {this.props.device}
+            </span>
           </div>
 
-          <div className="directory-list-toolbar-download">
-            <button
-              onClick={this.props.onDownloadFolderClick}
-              className="directory-list-toolbar-download-button">
-              <i className="fas fa-download directory-list-toolbar-download-icon" />
-              Download this folder
-            </button>
-            <div className="directory-list-toolbar-path-destination">
-              Files will be downloaded to {app.getPath("downloads")}
-            </div>
+          <div className="directory-list-toolbar-path">
+            Folder listing for /{this.props.devicePath.join("/")}
+          </div>
+        </div>
+
+        <div className="directory-list-toolbar-download">
+          <button
+            onClick={this.props.onDownloadFolderClick}
+            className="directory-list-toolbar-download-button">
+            <i className="fas fa-download directory-list-toolbar-download-icon" />
+            Download this folder
+          </button>
+          <div className="directory-list-toolbar-path-destination">
+            Files will be downloaded to {app.getPath("downloads")}
           </div>
         </div>
       </div>

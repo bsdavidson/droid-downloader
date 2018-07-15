@@ -9,6 +9,7 @@ export const SET_DEVICE_FILES = "SET_DEVICE_FILES";
 export const SET_DEVICE_PATH = "SET_DEVICE_PATH";
 export const SET_FILE_PREVIEW_PATH = "SET_FILE_PREVIEW_PATH";
 export const SET_LOCAL_PATH = "SET_LOCAL_PATH";
+export const TOGGLE_FILE_PREVIEW = "TOGGLE_FILE_PREVIEW";
 export const TRAVERSE_DEVICE_PATH = "TRAVERSE_DEVICE_PATH";
 
 export function downloadFile(name) {
@@ -53,6 +54,10 @@ export function setFilePreviewPath(filePreviewPath) {
 
 export function setLocalPath(localPath) {
   return {type: SET_LOCAL_PATH, localPath};
+}
+
+export function toggleFilePreviewFullscreen() {
+  return {type: TOGGLE_FILE_PREVIEW};
 }
 
 export function traverseDevicePath(dirName) {

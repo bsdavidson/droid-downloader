@@ -9,6 +9,7 @@ import DeviceToolbar from "./device_toolbar";
 import DeviceList from "./device_list";
 import DirectoryList from "./directory_list";
 import FileInfo from "./file_info";
+import PreviewFullScreen from "./preview_fullscreen";
 
 export class App extends React.Component {
   static handleLocalPathSetClick() {
@@ -33,6 +34,7 @@ export class App extends React.Component {
           <DeviceList />
         </div>
         <div className="app-directory-list">
+          <PreviewFullScreen />
           <DeviceToolbar />
           <DirectoryList />
           <FileInfo />
