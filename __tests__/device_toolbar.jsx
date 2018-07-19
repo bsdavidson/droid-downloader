@@ -1,5 +1,5 @@
 import React from "react";
-import {shallow} from "enzyme";
+import {mount, shallow} from "enzyme";
 import renderer from "react-test-renderer";
 
 import {DeviceToolbar} from "../src/device_toolbar";
@@ -13,6 +13,7 @@ test("<DeviceToolbar />", () => {
         devicePath={devicePath}
         devices={devices}
         onDownloadFolderClick={() => {}}
+        onBreadCrumbPathClick={() => {}}
       />
     )
     .toJSON();
@@ -27,6 +28,7 @@ test("<DeviceToolbar /> should render nothing without a device", () => {
         devicePath={devicePath}
         devices={devices}
         onDownloadFolderClick={() => {}}
+        onBreadCrumbPathClick={() => {}}
       />
     )
     .toJSON();
@@ -42,9 +44,30 @@ test("<DeviceToolbar /> should call onDownloadFolderClick", () => {
       devicePath={devicePath}
       devices={devices}
       onDownloadFolderClick={onDownloadFolderClick}
+      onBreadCrumbPathClick={() => {}}
     />
   );
   expect(onDownloadFolderClick.mock.calls.length).toBe(0);
   wrapper.find(".directory-list-toolbar-download-button").simulate("click");
   expect(onDownloadFolderClick.mock.calls.length).toBe(1);
+});
+
+test("<DeviceToolbar /> should call onDownloadFolderClick", () => {
+  const onBreadCrumbPathClick = jest.fn();
+  // Using mount since shallow doesn't seem to pass in events.
+  const wrapper = mount(
+    <DeviceToolbar
+      device={device}
+      devicePath={devicePath}
+      devices={devices}
+      onDownloadFolderClick={() => {}}
+      onBreadCrumbPathClick={onBreadCrumbPathClick}
+    />
+  );
+  expect(onBreadCrumbPathClick.mock.calls.length).toBe(0);
+  wrapper
+    .find(".directory-list-toolbar-crumb-link")
+    .first()
+    .simulate("click");
+  expect(onBreadCrumbPathClick.mock.calls.length).toBe(1);
 });

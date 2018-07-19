@@ -31,3 +31,6 @@ export const devices = [
 ];
 
 export const localPath = "/tmp";
+
+export const testImage =
+  "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAARVBMVEX/////AAAAAAAAAP8A/wD39/c2yQA7Ozu8vP8ACvUA8wz/4+P/9PT09PTj4//09P/j4+P0//Tj/+Po+eP3/fTp6en4+P+6GBu+AAAAUklEQVRIie3RNw6AMBQE0U8wOaf7H5XKsjtGFqJA+/qpxkw+0mfMoCQ92SvmCMlWMutPk46Jkqll5igpGCXe1TAm6c6acSFZcmZU4jnmtavy4AblqhLOouOKVQAAAABJRU5ErkJggg==";

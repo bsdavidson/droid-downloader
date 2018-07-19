@@ -3,13 +3,14 @@ import {shallow} from "enzyme";
 import renderer from "react-test-renderer";
 
 import {PreviewFullscreen} from "../src/preview_fullscreen";
+import {testImage} from "../__fixtures__/store";
 
 test("<PreviewFullscreen /> should render", () => {
   const wrapper = renderer
     .create(
       <PreviewFullscreen
         filePreviewFullScreen
-        filePreviewPath={"/tmp/image.jpg"}
+        filePreviewImage={testImage}
         onPreviewFullScreenClick={() => {}}
       />
     )
@@ -22,7 +23,7 @@ test("<PreviewFullscreen /> should not render", () => {
     .create(
       <PreviewFullscreen
         filePreviewFullScreen={false}
-        filePreviewPath={"/tmp/image.jpg"}
+        filePreviewImage={testImage}
         onPreviewFullScreenClick={() => {}}
       />
     )
@@ -36,7 +37,7 @@ test("<PreviewFullscreen /> should call onPreviewFullScreenClick when clicked", 
   const wrapper = shallow(
     <PreviewFullscreen
       filePreviewFullScreen
-      filePreviewPath={"/tmp/image.jpg"}
+      filePreviewImage={testImage}
       onPreviewFullScreenClick={onPreviewFullScreenClick}
     />
   );

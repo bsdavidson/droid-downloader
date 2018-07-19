@@ -5,9 +5,11 @@ exports[`<DeviceToolbar /> 1`] = `
   className="directory-list-toolbar"
 >
   <div
-    className="directory-list-toolbar-device"
+    className="directory-list-toolbar-top"
   >
-    <div>
+    <div
+      className="directory-list-toolbar-device"
+    >
       <span
         className="directory-list-toolbar-device-model"
       >
@@ -20,30 +22,118 @@ exports[`<DeviceToolbar /> 1`] = `
       </span>
     </div>
     <div
-      className="directory-list-toolbar-path"
+      className="directory-list-toolbar-download"
     >
-      Folder listing for /
-      storage/emulated/0/DCIM
+      <button
+        className="directory-list-toolbar-download-button"
+        onClick={[Function]}
+      >
+        <i
+          className="fas fa-download directory-list-toolbar-download-icon"
+        />
+        Download this folder
+      </button>
+      <div
+        className="directory-list-toolbar-path-destination"
+      >
+        Files will be downloaded to
+         
+        <a
+          className="directory-list-toolbar-path-link"
+          href="#changepath"
+          onClick={[Function]}
+        />
+      </div>
     </div>
   </div>
   <div
-    className="directory-list-toolbar-download"
+    className="directory-list-toolbar-path"
   >
-    <button
-      className="directory-list-toolbar-download-button"
-      onClick={[Function]}
+    <span
+      className="directory-list-toolbar-crumb"
     >
-      <i
-        className="fas fa-download directory-list-toolbar-download-icon"
-      />
-      Download this folder
-    </button>
-    <div
-      className="directory-list-toolbar-path-destination"
+      <span
+        className="directory-list-toolbar-crumb-sep"
+      >
+        /
+      </span>
+      <a
+        className="directory-list-toolbar-crumb-link"
+        data-path=""
+        href="#dir"
+        onClick={[Function]}
+      >
+        root
+      </a>
+    </span>
+    <span
+      className="directory-list-toolbar-crumb"
     >
-      Files will be downloaded to 
-      /tmp/downloads
-    </div>
+      <span
+        className="directory-list-toolbar-crumb-sep"
+      >
+        /
+      </span>
+      <a
+        className="directory-list-toolbar-crumb-link"
+        data-path="storage"
+        href="#dir"
+        onClick={[Function]}
+      >
+        storage
+      </a>
+    </span>
+    <span
+      className="directory-list-toolbar-crumb"
+    >
+      <span
+        className="directory-list-toolbar-crumb-sep"
+      >
+        /
+      </span>
+      <a
+        className="directory-list-toolbar-crumb-link"
+        data-path="storage|#emulated"
+        href="#dir"
+        onClick={[Function]}
+      >
+        emulated
+      </a>
+    </span>
+    <span
+      className="directory-list-toolbar-crumb"
+    >
+      <span
+        className="directory-list-toolbar-crumb-sep"
+      >
+        /
+      </span>
+      <a
+        className="directory-list-toolbar-crumb-link"
+        data-path="storage|#emulated|#0"
+        href="#dir"
+        onClick={[Function]}
+      >
+        0
+      </a>
+    </span>
+    <span
+      className="directory-list-toolbar-crumb"
+    >
+      <span
+        className="directory-list-toolbar-crumb-sep"
+      >
+        /
+      </span>
+      <a
+        className="directory-list-toolbar-crumb-link"
+        data-path="storage|#emulated|#0|#DCIM"
+        href="#dir"
+        onClick={[Function]}
+      >
+        DCIM
+      </a>
+    </span>
   </div>
 </div>
 `;

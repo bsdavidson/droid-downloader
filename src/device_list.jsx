@@ -24,7 +24,9 @@ export class DeviceList extends React.Component {
                 onClick={() => this.props.onDeviceClick(d.serial)}>
                 <i className="device-list-item-icon fas fa-mobile-alt" />
                 <span className="device-list-item-model">
-                  {d.properties.model.replace(/_/g, " ")}
+                  {d.properties &&
+                    d.properties.model &&
+                    d.properties.model.replace(/_/g, " ")}
                 </span>
               </a>
             </div>
@@ -46,8 +48,12 @@ export class DeviceList extends React.Component {
   }
 }
 
+DeviceList.defaultProps = {
+  device: null
+};
+
 DeviceList.propTypes = {
-  device: DroidPropTypes.device.isRequired,
+  device: DroidPropTypes.device,
   devices: DroidPropTypes.devices.isRequired,
   onDeviceClick: PropTypes.func.isRequired,
   onRefreshDevicesClick: PropTypes.func.isRequired

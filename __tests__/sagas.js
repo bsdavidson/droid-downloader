@@ -1,4 +1,5 @@
 import {call, put, select} from "redux-saga/effects";
+import fs from "fs";
 
 import * as sagas from "../src/sagas";
 import {Device, getDevices, pull, getDirectoryList} from "../src/adb";
@@ -27,14 +28,15 @@ test("downloadFolder should pull devicePath", () => {
 
   const device = "device";
   const devicePath = ["root", "child"];
-  expect(g.next({device, devicePath}).value).toEqual(
-    call(pull, device, "/root/child", "/tmp/downloads")
+  const localPath = "/tmp/downloads";
+  expect(g.next({device, devicePath, localPath}).value).toEqual(
+    call(pull, device, "/root/child", localPath)
   );
   expect(g.next().value).toEqual(
     call(
       notify,
       "Folder Download complete.",
-      "Downloaded child to /tmp/downloads"
+      `Downloaded child to ${localPath}`
     )
   );
 });
@@ -51,11 +53,13 @@ test("previewFile should pull a deviceFile if of Image type", () => {
   expect(g.next({device, deviceFile, devicePath}).value).toEqual(
     call(pull, device, "/root/child/filename.jpg", "/tmp/temp")
   );
-
-  expect(g.next().value).toEqual(
-    put(actions.setFilePreviewPath("/tmp/temp/filename.jpg"))
+  expect(g.next({deviceFile, devicePath}).value).toEqual(
+    call(fs.readFileSync, "/tmp/temp/filename.jpg")
   );
-
+  expect(g.next("buffer").value).toEqual("YnVmZmVy");
+  expect(g.next("YnVmZmVy").value).toEqual(
+    put(actions.setfilePreviewImage("data:image/png;base64,YnVmZmVy"))
+  );
   expect(g.next().done).toEqual(true);
 });
 
@@ -69,7 +73,7 @@ test("previewFile should set preview to null if deviceFile is not an image", () 
   const devicePath = ["root", "child"];
 
   expect(g.next({device, deviceFile, devicePath}).value).toEqual(
-    put(actions.setFilePreviewPath(null))
+    put(actions.setfilePreviewImage(null))
   );
 
   expect(g.next().done).toEqual(true);
@@ -88,12 +92,15 @@ test("refreshDeviceFiles should call getDirectoryList for devicePath", () => {
 
 test("refreshDevices should call getDevices", () => {
   const g = sagas.refreshDevices();
-
-  expect(g.next().value).toEqual(call(getDevices));
+  expect(g.next().value).toEqual(select());
+  const device = new Device("serial2", "device", {});
+  expect(g.next({device}).value).toEqual(call(getDevices));
   const mockDevices = [new Device("serial", "device", {})];
   expect(g.next(mockDevices).value).toEqual(
     put(actions.setDevices(mockDevices))
   );
+
+  expect(g.next().value).toEqual(put(actions.setDevice(null)));
   expect(g.next()).toEqual({done: true, value: undefined});
 });
 

@@ -14,16 +14,17 @@ export class FileInfo extends React.Component {
     this.props.onDownloadClick(this.props.deviceFile.name);
   }
   render() {
-    const {deviceFile, devicePath, filePreviewPath} = this.props;
+    const {deviceFile, devicePath, filePreviewImage} = this.props;
     if (!deviceFile) {
       return null;
     }
+
     let previewImage;
-    if (filePreviewPath) {
+    if (filePreviewImage) {
       previewImage = (
         <img
           className="file-info-preview-image"
-          src={`file://${filePreviewPath}`}
+          src={filePreviewImage}
           alt={deviceFile.name}
         />
       );
@@ -79,13 +80,13 @@ export class FileInfo extends React.Component {
 
 FileInfo.defaultProps = {
   deviceFile: null,
-  filePreviewPath: null
+  filePreviewImage: null
 };
 
 FileInfo.propTypes = {
   deviceFile: PropTypes.objectOf(PropTypes.string),
   devicePath: PropTypes.arrayOf(PropTypes.string).isRequired,
-  filePreviewPath: PropTypes.string,
+  filePreviewImage: PropTypes.string,
   onDownloadClick: PropTypes.func.isRequired,
   onPreviewFullScreenClick: PropTypes.func.isRequired
 };
@@ -94,7 +95,7 @@ function mapStateToProps(state) {
   return {
     deviceFile: state.deviceFile,
     devicePath: state.devicePath,
-    filePreviewPath: state.filePreviewPath
+    filePreviewImage: state.filePreviewImage
   };
 }
 

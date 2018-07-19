@@ -7,7 +7,7 @@ export const SET_DEVICES = "SET_DEVICES";
 export const SET_DEVICE_FILE = "SET_DEVICE_FILE";
 export const SET_DEVICE_FILES = "SET_DEVICE_FILES";
 export const SET_DEVICE_PATH = "SET_DEVICE_PATH";
-export const SET_FILE_PREVIEW_PATH = "SET_FILE_PREVIEW_PATH";
+export const SET_FILE_PREVIEW_IMAGE = "SET_FILE_PREVIEW_IMAGE";
 export const SET_LOCAL_PATH = "SET_LOCAL_PATH";
 export const TOGGLE_FILE_PREVIEW = "TOGGLE_FILE_PREVIEW";
 export const TRAVERSE_DEVICE_PATH = "TRAVERSE_DEVICE_PATH";
@@ -48,8 +48,8 @@ export function setDevices(devices) {
   return {type: SET_DEVICES, devices};
 }
 
-export function setFilePreviewPath(filePreviewPath) {
-  return {type: SET_FILE_PREVIEW_PATH, filePreviewPath};
+export function setfilePreviewImage(filePreviewImage) {
+  return {type: SET_FILE_PREVIEW_IMAGE, filePreviewImage};
 }
 
 export function setLocalPath(localPath) {

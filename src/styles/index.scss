@@ -22,8 +22,8 @@ body {
 
   .app-device-list {
     border-right: 1px solid #ccc;
-
     background: #efefef;
+    max-width: 12rem;
   }
   .app-directory-list {
     overflow: scroll;
@@ -96,29 +96,29 @@ body {
 .directory-list-toolbar {
   background: hsl(0, 0%, 94%);
   border-bottom: 1px solid #777;
-  display: flex;
   left: 12rem;
   padding: 0.5rem;
   position: fixed;
   right: 0;
-  .directory-list-toolbar-device {
+  &-device {
     flex-grow: 1;
   }
-  .directory-list-toolbar-device-model {
+  &-device-model {
     font-size: 1.8rem;
     font-weight: bold;
   }
-  .directory-list-toolbar-device-serial {
+  &-device-serial {
     color: #999999;
-    margin-left: 0.5rem;
+    margin-top: 0.4rem;
+    display: block;
   }
-  .directory-list-toolbar-path {
+  &-path {
     margin-top: 0.8rem;
   }
-  .directory-list-toolbar-download {
+  &-download {
     text-align: right;
   }
-  .directory-list-toolbar-download-button {
+  &-download-button {
     font-size: 1rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -127,15 +127,38 @@ body {
     border: 0;
     margin: 0.2rem;
   }
-  .directory-list-toolbar-download-icon {
+  &-download-icon {
     margin-right: 0.4rem;
   }
-  .directory-list-toolbar-path-destination {
+  &-path-destination {
     text-align: right;
     padding: 0.2rem;
     font-size: 0.8rem;
     font-weight: bold;
     color: #999999;
+  }
+  &-path-link {
+    color: dodgerblue;
+    text-decoration: underline;
+  }
+  &-download {
+    flex-grow: 0;
+  }
+  &-top {
+    display: flex;
+    flex-direction: row;
+  }
+  &-crumb {
+    padding: 0.2rem;
+    &-sep {
+      margin-right: 0.2rem;
+    }
+    &-link {
+      color: dodgerblue;
+    }
+    &-link:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -147,21 +170,23 @@ body {
   position: fixed;
   position: fixed;
   right: 0;
-  top: 5rem;
+  top: 6.5rem;
+  &-deviceinfo {
+    flex-grow: 1;
+  }
 
   &.file-info-present {
     padding-bottom: 10.2rem;
   }
 
   .directory-list-item {
-    padding: 0.25rem 1rem;
-
     &:hover {
       background: #ccc;
     }
     .directory-list-item-link {
       text-decoration: none;
       display: block;
+      padding: 0.25rem 1rem;
     }
     .directory-list-item-icon {
       padding-right: 0.5rem;
@@ -257,6 +282,7 @@ body {
     border-radius: 1.4rem;
     height: auto;
     max-width: 100%;
+    max-height: 100vh;
     padding: 1rem;
   }
 }

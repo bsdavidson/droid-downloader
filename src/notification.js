@@ -1,6 +1,7 @@
 export default function notify(title, body) {
-  new Notification(title, {
+  const notification = new Notification(title, {
     silent: true,
     body
   });
+  return notification;
 }

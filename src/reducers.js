@@ -7,11 +7,13 @@ import {
   SET_DEVICE_FILE,
   SET_DEVICE_FILES,
   SET_DEVICE_PATH,
-  SET_FILE_PREVIEW_PATH,
+  SET_FILE_PREVIEW_IMAGE,
   SET_LOCAL_PATH,
   TOGGLE_FILE_PREVIEW,
   TRAVERSE_DEVICE_PATH
 } from "./actions";
+
+const {app} = require("electron").remote;
 
 export function device(state = "", action) {
   switch (action.type) {
@@ -75,10 +77,10 @@ export function devices(state = [], action) {
   }
 }
 
-export function filePreviewPath(state = null, action) {
+export function filePreviewImage(state = null, action) {
   switch (action.type) {
-    case SET_FILE_PREVIEW_PATH:
-      return action.filePreviewPath;
+    case SET_FILE_PREVIEW_IMAGE:
+      return action.filePreviewImage;
     default:
       return state;
   }
@@ -101,7 +103,7 @@ export function filePreviewFullScreen(state = false, action) {
   }
 }
 
-export function localPath(state = "", action) {
+export function localPath(state = app.getPath("downloads"), action) {
   switch (action.type) {
     case SET_LOCAL_PATH:
       return action.localPath;
@@ -117,6 +119,6 @@ export const reducer = combineReducers({
   devicePath,
   devices,
   filePreviewFullScreen,
-  filePreviewPath,
+  filePreviewImage,
   localPath
 });

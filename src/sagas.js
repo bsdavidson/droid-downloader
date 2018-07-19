@@ -6,6 +6,8 @@ import {
   takeEvery,
   takeLatest
 } from "redux-saga/effects";
+
+import fs from "fs";
 import path from "path";
 
 import notify from "./notification";
@@ -22,21 +24,34 @@ import {
   setDeviceFiles,
   setDevicePath,
   setDevices,
-  setFilePreviewPath
+  setDevice,
+  setfilePreviewImage
 } from "./actions";
 
 const {app} = require("electron").remote;
 
-export function* downloadFile(action) {
-  const {device, devicePath} = yield select();
-  const file = `/${devicePath.join("/")}/${action.name}`;
+export function convertBase64(file) {
+  if (!file) {
+    return null;
+  }
+  return new Buffer(file).toString("base64");
+}
 
+export function* downloadFile(action) {
+  const {device, devicePath, localPath} = yield select();
+  const file = `/${devicePath.join("/")}/${action.name}`;
+  let downloadPath;
+  if (!localPath) {
+    downloadPath = app.getPath("downloads");
+  } else {
+    downloadPath = localPath;
+  }
   try {
-    yield call(pull, device, file, app.getPath("downloads"));
+    yield call(pull, device, file, downloadPath);
     yield call(
       notify,
       "Download complete.",
-      `Downloaded ${action.name} to ${app.getPath("downloads")}`
+      `Downloaded ${action.name} to ${downloadPath}`
     );
   } catch (err) {
     console.error("pull error:", err);
@@ -44,15 +59,23 @@ export function* downloadFile(action) {
 }
 
 export function* downloadFolder() {
-  const {device, devicePath} = yield select();
-  const source = `/${devicePath.join("/")}`;
-
+  const {device, devicePath, localPath} = yield select();
+  const source = `${path.sep}${devicePath.join(path.sep)}`;
+  if (!device) {
+    return;
+  }
+  let downloadPath;
+  if (!localPath) {
+    downloadPath = app.getPath("downloads");
+  } else {
+    downloadPath = localPath;
+  }
   try {
-    yield call(pull, device, source, app.getPath("downloads"));
+    yield call(pull, device, source, localPath);
     yield call(
       notify,
       "Folder Download complete.",
-      `Downloaded ${path.basename(source)} to ${app.getPath("downloads")}`
+      `Downloaded ${path.basename(source)} to ${downloadPath}`
     );
   } catch (err) {
     console.error("pull error:", err);
@@ -74,15 +97,22 @@ export function* previewFile() {
     fileExt !== "png" &&
     fileExt !== "gif"
   ) {
-    yield put(setFilePreviewPath(null));
+    yield put(setfilePreviewImage(null));
     return;
   }
-  const file = `/${devicePath.join("/")}/${deviceFile.name}`;
+  const file = `${path.sep}${devicePath.join(path.sep)}${path.sep}${
+    deviceFile.name
+  }`;
   const tempPath = app.getPath("temp");
 
   try {
     yield call(pull, device, file, tempPath);
-    yield put(setFilePreviewPath(`${tempPath}/${deviceFile.name}`));
+    const fileBuffer = yield call(
+      fs.readFileSync,
+      `${tempPath}${path.sep}${deviceFile.name}`
+    );
+    const encodedImage = yield convertBase64(fileBuffer);
+    yield put(setfilePreviewImage(`data:image/png;base64,${encodedImage}`));
   } catch (err) {
     console.error("preview error:", err);
   }
@@ -90,12 +120,15 @@ export function* previewFile() {
 
 export function* refreshDeviceFiles() {
   const {device, devicePath} = yield select();
+  if (!device) {
+    yield put(setDeviceFiles([]));
+  }
 
   try {
     const deviceFiles = yield call(
       getDirectoryList,
       device,
-      `/${devicePath.join("/")}`
+      `${path.sep}${devicePath.join(path.sep)}`
     );
     yield put(setDeviceFiles(deviceFiles));
   } catch (err) {
@@ -104,9 +137,15 @@ export function* refreshDeviceFiles() {
 }
 
 export function* refreshDevices() {
+  const {device} = yield select();
+
   try {
     const devices = yield call(getDevices);
     yield put(setDevices(devices));
+
+    if (!devices.filter(d => d.serial === device)[0]) {
+      yield put(setDevice(null));
+    }
   } catch (err) {
     console.error("getDevices error:", err);
   }

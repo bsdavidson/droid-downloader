@@ -6,7 +6,7 @@ import {toggleFilePreviewFullscreen} from "./actions";
 
 export class PreviewFullscreen extends Component {
   render() {
-    if (!this.props.filePreviewPath || !this.props.filePreviewFullScreen) {
+    if (!this.props.filePreviewImage || !this.props.filePreviewFullScreen) {
       return null;
     }
     return (
@@ -18,7 +18,7 @@ export class PreviewFullscreen extends Component {
           <img
             alt="Fullscreen"
             className="preview-fullscreen-image"
-            src={`file://${this.props.filePreviewPath}`}
+            src={this.props.filePreviewImage}
           />
         </a>
       </div>
@@ -27,18 +27,18 @@ export class PreviewFullscreen extends Component {
 }
 
 PreviewFullscreen.defaultProps = {
-  filePreviewPath: null
+  filePreviewImage: null
 };
 
 PreviewFullscreen.propTypes = {
-  filePreviewPath: PropTypes.string,
+  filePreviewImage: PropTypes.string,
   filePreviewFullScreen: PropTypes.bool.isRequired,
   onPreviewFullScreenClick: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    filePreviewPath: state.filePreviewPath,
+    filePreviewImage: state.filePreviewImage,
     filePreviewFullScreen: state.filePreviewFullScreen
   };
 }

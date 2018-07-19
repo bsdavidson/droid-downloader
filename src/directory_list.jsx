@@ -64,13 +64,14 @@ export class DirectoryList extends React.Component {
 }
 
 DirectoryList.defaultProps = {
-  deviceFile: null
+  deviceFile: null,
+  device: null
 };
 
 DirectoryList.propTypes = {
   onDeviceDirectoryClick: PropTypes.func.isRequired,
   onDeviceFileClick: PropTypes.func.isRequired,
-  device: DroidPropTypes.device.isRequired,
+  device: DroidPropTypes.device,
   devicePath: DroidPropTypes.devicePath.isRequired,
   deviceFile: DroidPropTypes.deviceFile,
   deviceFiles: DroidPropTypes.deviceFiles.isRequired
